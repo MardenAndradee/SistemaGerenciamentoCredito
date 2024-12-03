@@ -34,7 +34,7 @@ public class Main {
                     String desc = sc.nextLine();
 
                     Despesas desp1 = new Despesas(valor,data,desc);
-                    despesas.add(desp1);
+                    despesas.add(desp1);//teste
 
                 break;
 
