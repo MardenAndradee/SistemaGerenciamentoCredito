@@ -1,18 +1,29 @@
 import { useState } from 'react'
 import './MyForm.css'
 
-const MyForm = () => {
+const MyForm = ({ adicionarDespesa }) => {
 
     const [desc, setDesc] = useState()
-    const [Valor, setValor] = useState()
+    const [valor, setValor] = useState()
     const[categoria, setCategoria] = useState("")
     const[data, setData] = useState()
+    const [despesas, setDespesas] = useState([]);
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Enviando form")
-        console.log(desc,Valor,categoria,data)
+
+
+        const novaDespesa = {
+            descricao: desc,
+            valor: parseFloat(valor), // Certificando-se de que o valor é um número
+            categoria: categoria,
+            data: data
+          };
+      
+          // Chama a função do componente pai para adicionar a despesa
+    adicionarDespesa(novaDespesa);
+        
 
         setDesc("");
         setValor("");
@@ -24,7 +35,7 @@ const MyForm = () => {
 
         <div>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div class='item-form'>
                     <label htmlFor='desc'>Descrição:</label>
                     <input type='text'
                      name='desc'
@@ -33,18 +44,18 @@ const MyForm = () => {
                      onChange={(e) => setDesc(e.target.value)} value={desc}>
                      </input>
                 </div>
-                <div>
+                <div class='item-form'> 
                     <label htmlFor='Valor'>Valor:</label>
                     <input type='text'
                      name='Valor'
                       placeholder='Valor'
-                       onChange={(e) => setValor(e.target.value)} value={Valor}>
+                       onChange={(e) => setValor(e.target.value)} value={valor}>
                        </input>
                 </div>
-                <div>
+                <div class='item-form'>
                     <label>
-                        <span>Categoria:</span>
-                        <select name='categoria' onChange={(e) => setCategoria(e.target.value)}>
+                        <span >Categoria:</span>
+                        <select  name='categoria' onChange={(e) => setCategoria(e.target.value)}>
                             <option value='categ0'>Categ0</option>
                             <option value='categ1'>Categ1</option>
                             <option value='categ2'>Categ2</option>
@@ -53,7 +64,7 @@ const MyForm = () => {
                         </select>
                     </label>
                 </div>
-                <div>
+                <div class='item-form'>
                     <label htmlFor='data'>Data:</label>
                     <input type='date'
                      name='data'
@@ -64,7 +75,7 @@ const MyForm = () => {
                 </div>
                
 
-                <input type='submit' value='enviar' class='btn'></input>
+                <input type='submit' value='enviar' class='btnn'></input>
                 
             </form>
         </div>
