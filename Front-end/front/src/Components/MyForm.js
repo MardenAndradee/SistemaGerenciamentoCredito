@@ -26,15 +26,24 @@ const MyForm = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor='desc'>Descrição:</label>
-                    <input type='text' name='desc' placeholder='Descrição' onChange={(e) => setDesc(e.target.value)} value={desc}></input>
+                    <input type='text'
+                     name='desc'
+                     placeholder='Descrição' 
+                     class='desc'
+                     onChange={(e) => setDesc(e.target.value)} value={desc}>
+                     </input>
                 </div>
                 <div>
                     <label htmlFor='Valor'>Valor:</label>
-                    <input type='text' name='Valor' placeholder='Valor' onChange={(e) => setValor(e.target.value)} value={Valor}></input>
+                    <input type='text'
+                     name='Valor'
+                      placeholder='Valor'
+                       onChange={(e) => setValor(e.target.value)} value={Valor}>
+                       </input>
                 </div>
                 <div>
                     <label>
-                        <span>Categoria:  </span>
+                        <span>Categoria:</span>
                         <select name='categoria' onChange={(e) => setCategoria(e.target.value)}>
                             <option value='categ0'>Categ0</option>
                             <option value='categ1'>Categ1</option>
@@ -46,11 +55,16 @@ const MyForm = () => {
                 </div>
                 <div>
                     <label htmlFor='data'>Data:</label>
-                    <input type='date' name='data' placeholder='data' onChange={(e) => setData(e.target.value)} value={data}></input>
+                    <input type='date'
+                     name='data'
+                      placeholder='data'
+                      class='data'
+                       onChange={(e) => setData(e.target.value)} value={data}>
+                       </input>
                 </div>
                
 
-                <input type='submit' value='enviar'></input>
+                <input type='submit' value='enviar' class='btn'></input>
                 
             </form>
         </div>
