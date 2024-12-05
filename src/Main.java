@@ -1,60 +1,34 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+           Despesas despesas = new Despesas();
+           boolean menus = true;
+           Scanner scanner = new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
-        List<Despesas> despesas = new ArrayList<Despesas>();
+           while(menus == true){
+             System.out.println("""
+                      1- Cadastrar Despesas: 
+                      2- Consultar Despesas: 
+                      3- Remover Despesas:
+                      4- Pesquisa por Categoria:
+                      
+                       """);
+            int menu = scanner.nextInt();
 
-        int opc;
+            if(menu == 1){
+                despesas.cadastrarDespesas();
 
-        do {
-
-
-            System.out.println("MENU\n" +
-                    "1.Cadastrar Despesa\n" +
-                    "2.Consultar Gastos\n" +
-                    "0.Sair");
-
-            opc = sc.nextInt();
-
-            switch (opc){
-
-                case 1:
-                    System.out.println("Digite o valor da despesa: ");
-                    double valor = sc.nextDouble();
-
-                    System.out.println("Digite a data: ");
-                    sc.nextLine();
-                    String data = sc.nextLine();
-
-                    System.out.println("Digite a descrição: ");
-                    String desc = sc.nextLine();
-
-                    Despesas desp1 = new Despesas(valor,data,desc);
-                    despesas.add(desp1);
-
-                break;
-
-                case 2:
-
-                    double total = 0;
-
-                    for (Despesas desp : despesas){
-                        System.out.println(desp.toString());
-                        total += desp.getValor();
-                    }
-
-                    System.out.println("TOTAL = R$" + total);
-
-                    break;
+            }if(menu == 2){
+                despesas.consultarDespesas(despesas);
+               }
+            if(menu == 3){
+                despesas.removerDespesas(despesas);
+            }
+            if(menu == 4){
+                despesas.pesquisarPorCategoria(despesas);
             }
 
-        }while (opc!=0);
-
-
-
+           }
     }
 }
