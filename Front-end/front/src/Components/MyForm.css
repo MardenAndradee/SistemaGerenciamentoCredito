@@ -1,0 +1,23 @@
+form{
+    width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px black solid;
+}
+
+div{
+    margin: 50px;
+}
+
+input{
+    margin: 20px;
+}
+
+select{
+    margin: 20px;
+}
+
+option{
+    width: 500px;
+    height: 500px;
+}
