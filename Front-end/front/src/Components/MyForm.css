@@ -7,7 +7,7 @@ form{
     background: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.1);
     width: 900px;
      
 }
@@ -15,21 +15,17 @@ form{
 
 
 div{
-    margin: 50px;
-
-    flex-wrap: wrap;
-    justify-content: center;
-
-}
-
-.item-form{
+    margin: 15px;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
 }
 
 label{
     font-weight: bold;
     margin-bottom: 5px;
+    margin-right: 25px;
 }
 
 input, select {
@@ -37,6 +33,7 @@ input, select {
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 14px;
+    margin-right: 25px;
 }
 
 select{
