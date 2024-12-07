@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import './MyForm.css'
+import './FormPesquisa.css'
 
-const MyForm = ({ adicionarDespesa }) => {
+const FormPesquisa = (adicionarDespesa) => {
 
     const [desc, setDesc] = useState()
-    const [valor, setValor] = useState()
     const[categoria, setCategoria] = useState("")
     const[data, setData] = useState()
     const [despesas, setDespesas] = useState([]);
@@ -16,7 +15,6 @@ const MyForm = ({ adicionarDespesa }) => {
 
         const novaDespesa = {
             descricao: desc,
-            valor: parseFloat(valor), // Certificando-se de que o valor é um número
             categoria: categoria,
             data: data
           };
@@ -26,7 +24,6 @@ const MyForm = ({ adicionarDespesa }) => {
         
 
         setDesc("");
-        setValor("");
         setCategoria("");
         setData("");
     }
@@ -34,10 +31,10 @@ const MyForm = ({ adicionarDespesa }) => {
     return (
 
         <div>
-            <form onSubmit={handleSubmit}>
-<h2>Cadastro de despesa Simples</h2>
+            <form class='form-pesquisa' onSubmit={handleSubmit}>
+                    <h2>Pesquisa de Despesas</h2>
 
-                <div class='item-form'>
+                <div class='item-form div-pesquisa'>
                     <label htmlFor='desc'>Descrição:</label>
                     <input type='text'
                      name='desc'
@@ -45,14 +42,6 @@ const MyForm = ({ adicionarDespesa }) => {
                      class='desc'
                      onChange={(e) => setDesc(e.target.value)} value={desc}>
                      </input>
-                </div>
-                <div class='item-form'> 
-                    <label htmlFor='Valor'>Valor:</label>
-                    <input type='text'
-                     name='Valor'
-                      placeholder='Valor'
-                       onChange={(e) => setValor(e.target.value)} value={valor}>
-                       </input>
                 </div>
                 <div class='item-form'>
                     <label>
@@ -67,21 +56,31 @@ const MyForm = ({ adicionarDespesa }) => {
                     </label>
                 </div>
                 <div class='item-form'>
-                    <label htmlFor='data'>Data:</label>
-                    <input type='date'
-                     name='data'
-                      placeholder='data'
-                      class='data'
-                       onChange={(e) => setData(e.target.value)} value={data}>
-                       </input>
+                    <label>
+                    <span >Mês:</span>
+                        <select  name='mes' onChange={(e) => setData(e.target.value)}>
+                            <option value='1'>janeiro</option>
+                            <option value='2'>fevereiro</option>
+                            <option value='3'>março</option>
+                            <option value='4'>abril</option>
+                            <option value='5'>maio</option>
+                            <option value='6'>junho</option>
+                            <option value='7'>julho</option>
+                            <option value='8'>agosto</option>
+                            <option value='9'>setembro</option>
+                            <option value='10'>outubro</option>
+                            <option value='11'>novembro</option>
+                            <option value='12'>dezembro</option>
+                        </select>
+                        </label>
                 </div>
                
 
-                <input type='submit' value='enviar' class='btnn'></input>
+                <input type='submit' value='pesquisar' class='btnn-pesquisa'></input>
                 
             </form>
         </div>
     )
 }
 
-export default MyForm
+export default FormPesquisa

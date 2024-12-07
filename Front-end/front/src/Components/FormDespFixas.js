@@ -35,8 +35,7 @@ const MyForm = ({ adicionarDespesa }) => {
 
         <div>
             <form onSubmit={handleSubmit}>
-<h2>Cadastro de despesa Simples</h2>
-
+            <h2>Cadastro de despesas Fixas</h2>
                 <div class='item-form'>
                     <label htmlFor='desc'>Descrição:</label>
                     <input type='text'

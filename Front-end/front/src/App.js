@@ -2,7 +2,9 @@
 import './App.css';
 import MyForm from './Components/MyForm';
 import MyTable from './Components/MyTable';
+import FormDespFixas from './Components/FormDespFixas'
 import { useState } from 'react';
+import FormPesquisa from './Components/FormPesquisa';
 
 function App() {
   const [despesas, setDespesas] = useState([]);
@@ -13,8 +15,18 @@ function App() {
 
   return (
     <div className="App">
-      <h2>Cadastro de Despesas</h2>
+
+      <h2>Cadastros</h2>
+      <div class='Cadastros'>
+      
       <MyForm adicionarDespesa={adicionarDespesa}/>
+      <FormDespFixas/>
+      </div>
+
+      <h2>Pesquisa</h2>
+      <div className='Pesquisa'>
+        <FormPesquisa/>
+      </div>
 
       <h2>Relatório Despesas</h2>
       <MyTable despesas={despesas}/>
