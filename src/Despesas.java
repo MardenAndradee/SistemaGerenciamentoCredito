@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Despesas {
@@ -13,6 +14,7 @@ public class Despesas {
     private int id;
     private LocalDate dataDespesa;
     private int parcelas;
+    private List<LocalDate> datasParcelas = new ArrayList<>();
 
 
     Scanner scanner = new Scanner(System.in);
@@ -42,7 +44,6 @@ public class Despesas {
     }
 
 
-
     public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa ) {
         this.id = contador++;
         this.categoria = categoria;
@@ -50,9 +51,15 @@ public class Despesas {
         this.valor = valor;
         this.parcelas = parcelas;
         this.dataDespesa = dataDespesa;
+
+
+        for (int i = 1; i <= parcelas ; i++) {
+            datasParcelas.add(dataDespesa.plusMonths(i));
+        }
     }
 
     public Despesas(){}
+
 
     List<Despesas> listaDespesas = new ArrayList<>();
 
@@ -143,10 +150,14 @@ public class Despesas {
         int mesDesejado = scanner.nextInt();
         scanner.nextLine();
 
-        for (Despesas despesas : listaDespesas){
-            if(mesDesejado == despesas.dataDespesa.getMonthValue() && anoEscolhido == despesas.dataDespesa.getYear()){
-                System.out.println(despesas);
-                System.out.println("----------------------------------------------------");
+        for (Despesas despesas : listaDespesas) {
+
+            for (LocalDate dataparcela : despesas.datasParcelas) {
+                if (dataparcela.getMonthValue() == mesDesejado && dataparcela.getYear() == anoEscolhido) {
+                    System.out.println(despesas);
+                    System.out.println("----------------------------------------------------");
+
+                }
             }
         }
     }
