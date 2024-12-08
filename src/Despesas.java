@@ -74,6 +74,7 @@ public class Despesas {
 
         } else if (escolher.equalsIgnoreCase("nao")) {
             parcelas = 1;
+
         }
 
         System.out.println("Digite a categoria da compra: ");
