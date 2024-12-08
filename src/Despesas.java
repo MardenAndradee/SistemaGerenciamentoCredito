@@ -156,7 +156,6 @@ public class Despesas {
                 if (dataparcela.getMonthValue() == mesDesejado && dataparcela.getYear() == anoEscolhido) {
                     System.out.println(despesas);
                     System.out.println("----------------------------------------------------");
-
                 }
             }
         }
