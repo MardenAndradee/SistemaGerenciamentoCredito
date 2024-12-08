@@ -1,13 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './FormPesquisa.css'
+
 
 const FormPesquisa = (adicionarDespesa) => {
 
+        const anoAtual = new Date().getFullYear();
+
+        const mesAtual = new Date().getMonth() + 1;
+
+        
+    
+
     const [desc, setDesc] = useState()
     const[categoria, setCategoria] = useState("")
-    const[data, setData] = useState()
+    const[mes, setMes] = useState(mesAtual)
+    const[ano, setAno] = useState(anoAtual)
     const [despesas, setDespesas] = useState([]);
 
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,17 +26,17 @@ const FormPesquisa = (adicionarDespesa) => {
         const novaDespesa = {
             descricao: desc,
             categoria: categoria,
-            data: data
+            mes: mes,
+            ano: ano
           };
-      
-          // Chama a função do componente pai para adicionar a despesa
-    adicionarDespesa(novaDespesa);
-        
 
         setDesc("");
         setCategoria("");
-        setData("");
+        setMes(mesAtual);
+        setAno(anoAtual);
     }
+
+
 
     return (
 
@@ -55,24 +65,33 @@ const FormPesquisa = (adicionarDespesa) => {
                         </select>
                     </label>
                 </div>
-                <div class='item-form'>
+                <div class='item-form data'>
                     <label>
                     <span >Mês:</span>
-                        <select  name='mes' onChange={(e) => setData(e.target.value)}>
-                            <option value='1'>janeiro</option>
-                            <option value='2'>fevereiro</option>
-                            <option value='3'>março</option>
-                            <option value='4'>abril</option>
-                            <option value='5'>maio</option>
-                            <option value='6'>junho</option>
-                            <option value='7'>julho</option>
-                            <option value='8'>agosto</option>
-                            <option value='9'>setembro</option>
-                            <option value='10'>outubro</option>
-                            <option value='11'>novembro</option>
-                            <option value='12'>dezembro</option>
+                        <select  name='mes' onChange={(e) => setMes(parseInt(e.target.value))} value = {mes}>
+                            <option value='0'>janeiro</option>
+                            <option value='1'>fevereiro</option>
+                            <option value='2'>março</option>
+                            <option value='3'>abril</option>
+                            <option value='4'>maio</option>
+                            <option value='5'>junho</option>
+                            <option value='6'>julho</option>
+                            <option value='7'>agosto</option>
+                            <option value='8'>setembro</option>
+                            <option value='9'>outubro</option>
+                            <option value='10'>novembro</option>
+                            <option value='11'>dezembro</option>
                         </select>
                         </label>
+                </div>
+
+                <div class='item-form data'>
+                <label htmlFor='ano'>Ano:</label>
+                    <input type='number'
+                     name='ano'
+                     placeholder='Ano' 
+                     onChange={(e) => setAno(e.target.value)} value={ano}>
+                     </input>
                 </div>
                
 

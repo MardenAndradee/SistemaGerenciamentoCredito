@@ -1,13 +1,27 @@
 import { useState } from 'react'
 import './MyForm.css'
+import React, { useEffect } from 'react';
 
 const MyForm = ({ adicionarDespesa }) => {
 
+    const [parcelas,setParcelas] = useState("1")
     const [desc, setDesc] = useState()
     const [valor, setValor] = useState()
     const[categoria, setCategoria] = useState("")
     const[data, setData] = useState()
-    const [despesas, setDespesas] = useState([]);
+    const [despesas, setDespesas] = useState([])
+
+    const [mostrarDiv, setMostrarDiv] = useState(false);
+
+    const handleChange = (event) => {
+        const valorSelecionado = event.target.value;
+
+        setMostrarDiv(event.target.value === "sim");
+
+        if (valorSelecionado === "nao") {
+            setParcelas("1"); 
+        }
+    };
 
 
     const handleSubmit = (event) => {
@@ -15,8 +29,9 @@ const MyForm = ({ adicionarDespesa }) => {
 
 
         const novaDespesa = {
+            parcelas : parcelas,
             descricao: desc,
-            valor: parseFloat(valor), // Certificando-se de que o valor é um número
+            valor: parseFloat(valor), 
             categoria: categoria,
             data: data
           };
@@ -27,16 +42,39 @@ const MyForm = ({ adicionarDespesa }) => {
 
         setDesc("");
         setValor("");
-        setCategoria("");
+        setCategoria(0);
         setData("");
+        setParcelas("1")
     }
+
+
 
     return (
 
         <div>
             <form onSubmit={handleSubmit}>
-<h2>Cadastro de despesa Simples</h2>
+            <h2>Cadastro de despesa</h2>
 
+                <div class='item-form' id='escolhaTipo'>
+                    <label>
+                        <span >Tipo de despesa: </span>
+                        <select  name='tipo' onChange={handleChange}>
+                            <option value='nao'>À VISTA</option>
+                            <option value='sim'>PARCELADA</option>
+                        </select>
+                    </label>
+                </div>
+                {mostrarDiv && (
+                <div class='item-form' id='parcelas'>
+                    <label htmlFor='parcelas'>Parcelas:</label>
+                    <input type='number'
+                     name='parcelas'
+                     placeholder='N° Parcelas' 
+                     class='parcelas'
+                     onChange={(e) => setParcelas(e.target.value)} value={parcelas}>
+                     </input>
+                </div>
+                )}
                 <div class='item-form'>
                     <label htmlFor='desc'>Descrição:</label>
                     <input type='text'

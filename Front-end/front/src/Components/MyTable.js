@@ -13,6 +13,7 @@ const BasicExample = ({despesas}) => {
           <th>#</th>
           <th>Descrição</th>
           <th>Valor</th>
+          <th>Parcela</th>
           <th>Categoria</th>
           <th>Data</th>
         </tr>
@@ -23,6 +24,7 @@ const BasicExample = ({despesas}) => {
             <td>{index + 1}</td>
             <td>{despesa.descricao}</td>
             <td>{despesa.valor}</td>
+            <td>{despesa.parcelas}</td> {/* colocar o numero da parcela*/}
             <td>{despesa.categoria}</td>
             <td>{despesa.data}</td>
           </tr>

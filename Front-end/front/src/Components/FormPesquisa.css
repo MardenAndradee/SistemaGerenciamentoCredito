@@ -2,8 +2,8 @@
 
 
 .form-pesquisa{
-    height: 500px;
-    width: 1300px;
+    height: 400px;
+    width: 900px;
 }
 
 
@@ -11,6 +11,8 @@
 .div-pesquisa{
     padding: 0;
 }
+
+
 
 .btnn {
     padding: 10px;
