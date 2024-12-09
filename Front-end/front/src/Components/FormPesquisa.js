@@ -32,7 +32,7 @@ const FormPesquisa = (adicionarDespesa) => {
 
         setDesc("");
         setCategoria("");
-        setMes(mesAtual);
+        setMes();
         setAno(anoAtual);
     }
 
