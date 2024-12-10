@@ -13,9 +13,20 @@ public class Despesas {
     private int id;
     private LocalDate dataDespesa;
     private int parcelas;
+    private String forma;
+    private int nparcela;
+
 
 
     Scanner scanner = new Scanner(System.in);
+
+    public String getTipo() {
+        return forma;
+    }
+
+    public void setTipo(String tipo) {
+        this.forma = tipo;
+    }
 
     public double getValor() {
         return valor;
@@ -41,15 +52,25 @@ public class Despesas {
         this.descricao = descricao;
     }
 
+    public int getNparcela() {
+        return nparcela;
+    }
+
+    public void setNparcela(int nparcela) {
+        this.nparcela = nparcela;
+    }
 
 
-    public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa ) {
+
+    public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa, String forma, int nparcela) {
         this.id = contador++;
         this.categoria = categoria;
         this.descricao = descricao;
         this.valor = valor;
         this.parcelas = parcelas;
         this.dataDespesa = dataDespesa;
+        this.forma = forma;
+        this.nparcela = nparcela;
     }
 
     public Despesas(){}
@@ -57,15 +78,15 @@ public class Despesas {
     List<Despesas> listaDespesas = new ArrayList<>();
 
     public void cadastrarDespesas(){
-        System.out.println("Despesa parcelada? (sim/não)");
-        String escolher = scanner.nextLine();
+        System.out.println("debito ou credito?");
+        String forma = scanner.nextLine();
 
-        if(escolher.equalsIgnoreCase("sim")) {
+        if(forma.equalsIgnoreCase("credito")) {
             System.out.println("Em quantas parcelas: ");
             parcelas = scanner.nextInt();
             scanner.nextLine();
 
-        } else if (escolher.equalsIgnoreCase("nao")) {
+        } else if (forma.equalsIgnoreCase("debito")) {
             parcelas = 1;
         }
 
@@ -87,8 +108,34 @@ public class Despesas {
         DateTimeFormatter formatar = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataDespesa = LocalDate.parse(dataInformada,formatar);
 
-        Despesas despesas = new Despesas(id,categoria,descricao,valor,parcelas,dataDespesa);
-        listaDespesas.add(despesas);
+        // O intuito dessa parte é em vez de cadastrar uma despesa para várias parcelas como está atualmente no branch principal,
+        //  criar várias despesas para várias parcelas.Por exemplo uma despesa tem 5 parcelas, cria 5 despesas e adiciona as 5 a lista
+        // Para ficar melhor a organização dos relatórios e banco de dados.
+
+        //Criei a variavel nparcela que mostra qual o numero da parcela
+
+
+        valor= valor/parcelas; //Para que cada despesa tenha o valor correto, vai dividir o valor pela parcela e deixar armazenado
+        // Caso seja uma parcela, vai dividir por 1 e dar na mesma
+
+        nparcela = 1; //define o valor da primeira parcela como 1, se tiver mais parcela vai incrementar no for
+
+
+        // se a forma de pagamento for credito, mesmo que seja de uma vez, vai para a fatura do proximo mes
+        //caso for debito vai para a fatura do mes que foi cadastrado a despesa
+        if(forma.equalsIgnoreCase("credito")){
+            dataDespesa = dataDespesa.plusMonths(1);
+        }
+
+        for(int i =1; i <= parcelas;i++) {   //Cria uma loop para criar as multiplas despesas relacionada ao numero de parcela e adiciona a lista
+
+            Despesas despesas = new Despesas(id,categoria,descricao,valor,parcelas,dataDespesa,forma,nparcela);
+
+            listaDespesas.add(despesas);
+
+            nparcela++;
+            dataDespesa = dataDespesa.plusMonths(1);// Adiciona um mês a mais para a proxima parcela
+        }
 
         System.out.println("DESPESA CADASTRADA COM SUCESSO. ");
         return;
@@ -160,6 +207,8 @@ public class Despesas {
                 "\nDescrição: " + descricao  +
                 "\nValor: " + valor/parcelas +
                 "\nParcelas: " + parcelas +
-                "\nData da despesa: " + dataDespesa;
+                "\nData da despesa: " + dataDespesa +
+                "\nForma: " + forma +
+                "\nN° da Parcela " + nparcela;
     }
 }
