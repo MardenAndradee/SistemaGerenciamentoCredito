@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './MyForm.css'
 import React, { useEffect } from 'react';
+import FormRange from 'react-bootstrap/esm/FormRange';
 
 const MyForm = ({ adicionarDespesa }) => {
 
@@ -9,16 +10,20 @@ const MyForm = ({ adicionarDespesa }) => {
     const [valor, setValor] = useState()
     const[categoria, setCategoria] = useState("")
     const[data, setData] = useState()
+    const[forma, setForma] = useState()
     const [despesas, setDespesas] = useState([])
 
     const [mostrarDiv, setMostrarDiv] = useState(false);
 
     const handleChange = (event) => {
+
+        setForma(event.target.value);
+
         const valorSelecionado = event.target.value;
 
-        setMostrarDiv(event.target.value === "sim");
+        setMostrarDiv(event.target.value === "credito");
 
-        if (valorSelecionado === "nao") {
+        if (valorSelecionado === "debito") {
             setParcelas("1"); 
         }
     };
@@ -33,7 +38,8 @@ const MyForm = ({ adicionarDespesa }) => {
             descricao: desc,
             valor: parseFloat(valor), 
             categoria: categoria,
-            data: data
+            data: data,
+            forma: forma
           };
       
           // Chama a função do componente pai para adicionar a despesa
@@ -44,7 +50,8 @@ const MyForm = ({ adicionarDespesa }) => {
         setValor("");
         setCategoria(0);
         setData("");
-        setParcelas("1")
+        setParcelas("1");
+        setForma();
     }
 
 
@@ -57,10 +64,10 @@ const MyForm = ({ adicionarDespesa }) => {
 
                 <div class='item-form' id='escolhaTipo'>
                     <label>
-                        <span >Tipo de despesa: </span>
-                        <select  name='tipo' onChange={handleChange}>
-                            <option value='nao'>À VISTA</option>
-                            <option value='sim'>PARCELADA</option>
+                        <span >Forma de pagamento: </span>
+                        <select  name='forma' onChange={handleChange}>
+                            <option value='debito'>DÉBITO</option>
+                            <option value='credito'>CRÉDITO</option>
                         </select>
                     </label>
                 </div>

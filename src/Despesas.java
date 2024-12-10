@@ -13,9 +13,20 @@ public class Despesas {
     private int id;
     private LocalDate dataDespesa;
     private int parcelas;
+    private String forma;
+    private int nparcela;
+
 
 
     Scanner scanner = new Scanner(System.in);
+
+    public String getTipo() {
+        return forma;
+    }
+
+    public void setTipo(String tipo) {
+        this.forma = tipo;
+    }
 
     public double getValor() {
         return valor;
@@ -41,15 +52,31 @@ public class Despesas {
         this.descricao = descricao;
     }
 
+    public int getNparcela() {
+        return nparcela;
+    }
 
+    public void setNparcela(int nparcela) {
+        this.nparcela = nparcela;
+    }
 
-    public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa ) {
-        this.id = contador++;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa, String forma, int nparcela) {
+        this.id = this.contador;
         this.categoria = categoria;
         this.descricao = descricao;
         this.valor = valor;
         this.parcelas = parcelas;
         this.dataDespesa = dataDespesa;
+        this.forma = forma;
+        this.nparcela = nparcela;
     }
 
     public Despesas(){}
@@ -57,15 +84,15 @@ public class Despesas {
     List<Despesas> listaDespesas = new ArrayList<>();
 
     public void cadastrarDespesas(){
-        System.out.println("Despesa parcelada? (sim/não)");
-        String escolher = scanner.nextLine();
+        System.out.println("debito ou credito?");
+        String forma = scanner.nextLine();
 
-        if(escolher.equalsIgnoreCase("sim")) {
+        if(forma.equalsIgnoreCase("credito")) {
             System.out.println("Em quantas parcelas: ");
             parcelas = scanner.nextInt();
             scanner.nextLine();
 
-        } else if (escolher.equalsIgnoreCase("nao")) {
+        } else if (forma.equalsIgnoreCase("debito")) {
             parcelas = 1;
         }
 
@@ -87,10 +114,26 @@ public class Despesas {
         DateTimeFormatter formatar = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataDespesa = LocalDate.parse(dataInformada,formatar);
 
-        Despesas despesas = new Despesas(id,categoria,descricao,valor,parcelas,dataDespesa);
-        listaDespesas.add(despesas);
+        valor= valor/parcelas; 
+
+        nparcela = 1; 
+        
+        if(forma.equalsIgnoreCase("credito")){
+            dataDespesa = dataDespesa.plusMonths(1);
+        }
+
+        for(int i =1; i <= parcelas;i++) {  
+
+            Despesas despesas = new Despesas(id,categoria,descricao,valor,parcelas,dataDespesa,forma,nparcela);
+
+            listaDespesas.add(despesas);
+
+            nparcela++;
+            dataDespesa = dataDespesa.plusMonths(1);
+        }
 
         System.out.println("DESPESA CADASTRADA COM SUCESSO. ");
+        contador++;
         return;
     }
 
@@ -111,9 +154,11 @@ public class Despesas {
             System.out.println(despesas1);
             System.out.println("----------------------------------------------------");
         }
-        System.out.println("QUAL DESTAS DESPESAS VOCÊ QUER REMOVER: ");
+        System.out.println("QUAL ID DESTAS DESPESAS VOCÊ QUER REMOVER: ");
         int remover = scanner.nextInt();
-        listaDespesas.remove(remover - 1);
+        listaDespesas.removeIf(despesas1 -> despesas1.getId() == remover);
+
+
         System.out.println("DESPESA REMOVIDA COM SUCESSO. ");
         return;
     }
@@ -158,8 +203,10 @@ public class Despesas {
         return  "ID da compra: " + id +
                 "\nCategoria: " + categoria +
                 "\nDescrição: " + descricao  +
-                "\nValor: " + valor/parcelas +
+                "\nValor: " + valor +
                 "\nParcelas: " + parcelas +
-                "\nData da despesa: " + dataDespesa;
+                "\nData da despesa: " + dataDespesa +
+                "\nForma: " + forma +
+                "\nN° da Parcela " + nparcela;
     }
 }
