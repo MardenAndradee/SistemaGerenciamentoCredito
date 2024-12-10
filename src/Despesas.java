@@ -60,10 +60,16 @@ public class Despesas {
         this.nparcela = nparcela;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Despesas(int id, String categoria, String descricao, double valor, int parcelas, LocalDate dataDespesa, String forma, int nparcela) {
-        this.id = contador++;
+        this.id = this.contador;
         this.categoria = categoria;
         this.descricao = descricao;
         this.valor = valor;
@@ -138,6 +144,7 @@ public class Despesas {
         }
 
         System.out.println("DESPESA CADASTRADA COM SUCESSO. ");
+        contador++;
         return;
     }
 
@@ -158,9 +165,11 @@ public class Despesas {
             System.out.println(despesas1);
             System.out.println("----------------------------------------------------");
         }
-        System.out.println("QUAL DESTAS DESPESAS VOCÊ QUER REMOVER: ");
+        System.out.println("QUAL ID DESTAS DESPESAS VOCÊ QUER REMOVER: ");
         int remover = scanner.nextInt();
-        listaDespesas.remove(remover - 1);
+        listaDespesas.removeIf(despesas1 -> despesas1.getId() == remover);
+
+
         System.out.println("DESPESA REMOVIDA COM SUCESSO. ");
         return;
     }
@@ -205,7 +214,7 @@ public class Despesas {
         return  "ID da compra: " + id +
                 "\nCategoria: " + categoria +
                 "\nDescrição: " + descricao  +
-                "\nValor: " + valor/parcelas +
+                "\nValor: " + valor +
                 "\nParcelas: " + parcelas +
                 "\nData da despesa: " + dataDespesa +
                 "\nForma: " + forma +
