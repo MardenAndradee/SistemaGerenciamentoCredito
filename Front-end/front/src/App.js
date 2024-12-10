@@ -27,6 +27,8 @@ function App() {
         <FormPesquisa/>
       </div>
 
+      
+
       <MyTable despesas={despesas}/>
 
     </div>
