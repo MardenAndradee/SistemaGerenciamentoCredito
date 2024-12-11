@@ -1,0 +1,26 @@
+Anotações de objetivos para nos orientarmos do que fazer primeiro. Importante não pular esses itens, pois um item pode depender do anterior
+
+1. Fazer back-end em java | Feito/Testado: Sim
+obs:
+
+
+2. Fazer front-end em react | Feito/Testado: Em desenvolvimento
+obs: Página Principal: Feito
+     Modulo Cadastro Despesa: Verificar
+     Modulo Pesquisa: Verificar
+     Tabela de Consulta: A fazer/Falta colocar ícones de editar despesa e excluir
+     Página de Login: A fazer
+     Header: A fazer
+     Footer: A fazer
+
+
+3. Migrar o projeto para Spring | Feito/Testado: Em desenvolvimento
+obs: Adicionar Função de editar despesa, atentar as despesas parceladas
+
+
+4.Implementar banco de dados ao back-end, já com Spring | Feito/Testado: Não
+obs:
+
+
+5.Conectar o Back-end(Java Spring) e Banco de Dados com o front-end(React) | Feito/Testado: Não
+obs: Atentar para colocar função em todos os botões, inclusive nos ícones da tabela
