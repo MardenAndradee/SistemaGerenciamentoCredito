@@ -24,3 +24,7 @@ obs:
 
 5.Conectar o Back-end(Java Spring) e Banco de Dados com o front-end(React) | Feito/Testado: Não
 obs: Atentar para colocar função em todos os botões, inclusive nos ícones da tabela
+
+
+Ideias
+-Botão de gerar planilha do excel
