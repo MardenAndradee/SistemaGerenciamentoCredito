@@ -21,6 +21,6 @@ obs: Página Principal: Feito
 5.Desenvolver o CRUD com banco de dados local | Feito/Testado: Não
 
 6.Hospedar banco de dados online | Feito/Testado: Não
-obs: Opção de hospedagem de banco de dados gratuita : Planetscale (Free Plan)
+obs: Opção de hospedagem de banco de dados gratuita : AWS ou Heroku (ClearDB)
 
 7.Desenvolver a classe usuários e associar as despesas aos usuários | Feito/Testado: Não
