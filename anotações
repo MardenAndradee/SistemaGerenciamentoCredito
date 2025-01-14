@@ -1,0 +1,26 @@
+Anotações de objetivos para nos orientarmos do que fazer primeiro. Importante não pular esses itens, pois um item pode depender do anterior
+
+1. Fazer back-end em java | Feito/Testado: Sim
+obs:
+
+
+2. Fazer front-end em react | Feito/Testado: Em desenvolvimento
+obs: Página Principal: Feito
+     Modulo Cadastro Despesa: Verificar
+     Modulo Pesquisa: Verificar
+     Tabela de Consulta: A fazer/Falta colocar ícones de editar despesa e excluir
+     Página de Login: A fazer
+     Header: A fazer
+     Footer: A fazer
+
+
+3. Implementar Maven ao projeto | Feito/Testado: Em desenvolvimento
+
+4.Implementar Hibernate ao projeto | Feito/Testado: Não
+
+5.Desenvolver o CRUD com banco de dados local | Feito/Testado: Não
+
+6.Hospedar banco de dados online | Feito/Testado: Não
+obs: Opção de hospedagem de banco de dados gratuita : AWS ou Heroku (ClearDB)
+
+7.Desenvolver a classe usuários e associar as despesas aos usuários | Feito/Testado: Não
