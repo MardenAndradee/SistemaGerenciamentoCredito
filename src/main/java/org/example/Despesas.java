@@ -1,3 +1,4 @@
+package org.example;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -114,22 +115,33 @@ public class Despesas {
         DateTimeFormatter formatar = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         dataDespesa = LocalDate.parse(dataInformada,formatar);
 
-        valor= valor/parcelas; 
+        // O intuito dessa parte é em vez de cadastrar uma despesa para várias parcelas como está atualmente no branch principal,
+        //  criar várias despesas para várias parcelas.Por exemplo uma despesa tem 5 parcelas, cria 5 despesas e adiciona as 5 a lista
+        // Para ficar melhor a organização dos relatórios e banco de dados.
 
-        nparcela = 1; 
-        
+        //Criei a variavel nparcela que mostra qual o numero da parcela
+
+
+        valor= valor/parcelas; //Para que cada despesa tenha o valor correto, vai dividir o valor pela parcela e deixar armazenado
+        // Caso seja uma parcela, vai dividir por 1 e dar na mesma
+
+        nparcela = 1; //define o valor da primeira parcela como 1, se tiver mais parcela vai incrementar no for
+
+
+        // se a forma de pagamento for credito, mesmo que seja de uma vez, vai para a fatura do proximo mes
+        //caso for debito vai para a fatura do mes que foi cadastrado a despesa
         if(forma.equalsIgnoreCase("credito")){
             dataDespesa = dataDespesa.plusMonths(1);
         }
 
-        for(int i =1; i <= parcelas;i++) {  
+        for(int i =1; i <= parcelas;i++) {   //Cria uma loop para criar as multiplas despesas relacionada ao numero de parcela e adiciona a lista
 
             Despesas despesas = new Despesas(id,categoria,descricao,valor,parcelas,dataDespesa,forma,nparcela);
 
             listaDespesas.add(despesas);
 
             nparcela++;
-            dataDespesa = dataDespesa.plusMonths(1);
+            dataDespesa = dataDespesa.plusMonths(1);// Adiciona um mês a mais para a proxima parcela
         }
 
         System.out.println("DESPESA CADASTRADA COM SUCESSO. ");
