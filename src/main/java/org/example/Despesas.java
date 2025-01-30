@@ -19,6 +19,8 @@ public class Despesas {
     private LocalDate dataDespesa;
     private int parcelas;
     private int nparcela;
+    private int receita;
+    private int idUsuario;
 
     public int getId() {
         return id;
@@ -84,9 +86,25 @@ public class Despesas {
         this.nparcela = nparcela;
     }
 
+    public int getReceita() {
+        return receita;
+    }
+
+    public void setReceita(int receita) {
+        this.receita = receita;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public Despesas(){}
 
-    public Despesas(int id, String descricao, double valor, String categoria, String formaPagamento, LocalDate dataDespesa, int parcelas, int nparcela) {
+    public Despesas(int id, String descricao, double valor, String categoria, String formaPagamento, LocalDate dataDespesa, int parcelas, int nparcela, int receita, int idUsuario) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -95,6 +113,8 @@ public class Despesas {
         this.dataDespesa = dataDespesa;
         this.parcelas = parcelas;
         this.nparcela = nparcela;
+        this.receita = receita;
+        this.idUsuario = idUsuario;
     }
 
     @Override

@@ -23,15 +23,18 @@ public class Main {
 
         while(menus == true){
             System.out.println("""
+                      \nMenu despesas
                       \n1- Cadastrar Despesa
-                      2- Consultar Despesa
-                      3- Remover Despesa
-                      4- Editar Despesa
-                      5- Pesquisa com filtros
-                      
-                      6- Cadastrar categoria
-                      7- Listar categorias
-                      8- Editar categoria
+                      2- Consultar parcela despesa
+                      3- Remover parcela
+                      4- Remover despesa
+                      5- Editar Despesa
+                      6- Pesquisa com filtros
+                      -----------------------
+                      Menu categoria
+                      \n7- Cadastrar categoria
+                      8- Listar categorias
+                      9- Excluir categoria
                       
                        """);
 
@@ -82,9 +85,14 @@ public class Main {
                     dataDespesa = dataDespesa.plusMonths(1);
                 }
 
+                //o intuito da receita é agrupar todas as despesas parceladas.
+                //int receita =
+
+                int receita = despesasDAO.getLastReceita(0) + 1;
+
                 for(int i =1; i <= parcelas;i++) {
 
-                    despesas = new Despesas(0,descricao,valor,categoria,forma,dataDespesa,parcelas,nparcela);
+                    despesas = new Despesas(0,descricao,valor,categoria,forma,dataDespesa,parcelas,nparcela,receita,0);
 
                     despesasDAO.salvar(despesas);
 
@@ -120,6 +128,22 @@ public class Main {
 
             }
             if(menu == 4){
+                for(Object[] obj: despesasDAO.listarAgrupado()){
+                    System.out.println("\nID: " + obj[0]);
+                    System.out.println("Descrição: " + obj[1]);
+                    System.out.println("Valor: " + obj[2]);
+                    System.out.println("Categoria: " + obj[3]);
+                    System.out.println("Forma de pagamento: " + obj[4]);
+                    System.out.println("Receita: " + obj[7]);
+                }
+
+                System.out.println("\nSelecione a receita que deseja excluir: ");
+                int id = scanner.nextInt();
+
+                despesasDAO.excluirPorReceita(id);
+
+            }
+            if(menu == 5){
                 for(Object[] obj: despesasDAO.listar()){
                     System.out.println("\nID: " + obj[0]);
                     System.out.println("Descrição: " + obj[1]);
@@ -150,7 +174,7 @@ public class Main {
 
 
             }
-            if(menu == 5){
+            if(menu == 6){
 
                 System.out.println("\nFiltros");
 
@@ -181,7 +205,7 @@ public class Main {
                 }
 
             }
-            if(menu == 6){
+            if(menu == 7){
                 System.out.println("\nDigite o nome da categoria: ");
                 scanner.nextLine();
                 String categoria = scanner.nextLine();
@@ -190,13 +214,13 @@ public class Main {
 
                 categoriasDAO.salvar(categorias);
             }
-            if(menu == 7){
+            if(menu == 8){
                 for(Categorias c: categoriasDAO.listar()){
                     System.out.println("\nID: " + c.getId());
                     System.out.println("Categoria: " + c.getCategoria());
                 }
             }
-            if(menu == 8){
+            if(menu == 9){
                 for(Categorias c: categoriasDAO.listar()){
                     System.out.println("\nID: " + c.getId());
                     System.out.println("Categoria: " + c.getCategoria());

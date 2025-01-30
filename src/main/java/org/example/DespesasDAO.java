@@ -74,7 +74,7 @@ public class DespesasDAO {
 
         try{
 
-            despesas = em.createQuery("SELECT d.id, d.descricao, d.valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas " +
+            despesas = em.createQuery("SELECT d.id, d.descricao, d.valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.receita " +
                     "FROM  Despesas d, Categorias c " +
                     "WHERE d.categoria = c.id ").getResultList();
 
@@ -85,6 +85,27 @@ public class DespesasDAO {
         return despesas;
 
     }
+
+    public List<Object[]> listarAgrupado(){
+
+        List<Object[]> despesas = null;
+
+        try{
+
+            despesas = em.createQuery("SELECT d.id, d.descricao, SUM(d.valor) AS total_valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.receita " +
+                    "FROM Despesas d " +
+                    "JOIN Categorias c ON d.categoria = c.id " +
+                    "GROUP BY d.receita").getResultList();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return despesas;
+
+    }
+
+    //funções avulsas
 
     public List<Despesas> listarFiltro(String categoria, String formaPagamento, LocalDate dataInicial, LocalDate dataFinal){
         List despesas = null;
@@ -109,7 +130,54 @@ public class DespesasDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public int getLastReceita(int id){
+        try{
+
+
+            String query = "SELECT MAX(receita) from Despesas";
+
+            int receita = (int) em.createQuery(query).getSingleResult();
+
+            return receita;
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
+
+    public List<Despesas> buscarPorReceita(int receita){
+
+        List<Despesas> despesas = null;
+
+        try{
+
+            despesas = em.createQuery("FROM  Despesas d WHERE d.receita = "+ receita +" ").getResultList();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return despesas;
+
+    }
+
+    public void excluirPorReceita(int receita){
+        try{
+
+            for(Despesas d: buscarPorReceita(receita)){
+                excluir(d.getId());
+            }
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 }
