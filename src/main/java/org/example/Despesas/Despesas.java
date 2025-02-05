@@ -1,9 +1,8 @@
-package org.example;
+package org.example.Despesas;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.example.Categorias.Categorias;
+
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -14,12 +13,14 @@ public class Despesas {
     private int id;
     private String descricao;
     private double valor;
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria")
+    private Categorias categoria;
     private String formaPagamento;
     private LocalDate dataDespesa;
     private int parcelas;
     private int nparcela;
-    private int receita;
+    private int identificador;
     private int idUsuario;
 
     public int getId() {
@@ -46,11 +47,11 @@ public class Despesas {
         this.valor = valor;
     }
 
-    public String getCategoria() {
+    public Categorias getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categorias categoria) {
         this.categoria = categoria;
     }
 
@@ -87,11 +88,11 @@ public class Despesas {
     }
 
     public int getReceita() {
-        return receita;
+        return identificador;
     }
 
     public void setReceita(int receita) {
-        this.receita = receita;
+        this.identificador = receita;
     }
 
     public int getIdUsuario() {
@@ -104,7 +105,7 @@ public class Despesas {
 
     public Despesas(){}
 
-    public Despesas(int id, String descricao, double valor, String categoria, String formaPagamento, LocalDate dataDespesa, int parcelas, int nparcela, int receita, int idUsuario) {
+    public Despesas(int id, String descricao, double valor, Categorias categoria, String formaPagamento, LocalDate dataDespesa, int parcelas, int nparcela, int identificador, int idUsuario) {
         this.id = id;
         this.descricao = descricao;
         this.valor = valor;
@@ -113,7 +114,7 @@ public class Despesas {
         this.dataDespesa = dataDespesa;
         this.parcelas = parcelas;
         this.nparcela = nparcela;
-        this.receita = receita;
+        this.identificador = identificador;
         this.idUsuario = idUsuario;
     }
 

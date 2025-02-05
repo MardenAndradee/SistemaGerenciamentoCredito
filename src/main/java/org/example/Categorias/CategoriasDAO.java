@@ -1,9 +1,8 @@
-package org.example;
+package org.example.Categorias;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.time.LocalDate;
 import java.util.List;
 
 public class CategoriasDAO {

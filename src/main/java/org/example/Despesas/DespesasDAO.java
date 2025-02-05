@@ -1,4 +1,6 @@
-package org.example;
+package org.example.Despesas;
+
+import org.example.Categorias.Categorias;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -31,7 +33,7 @@ public class DespesasDAO {
         }
     }
 
-    public void editar(int id, String descricao, double valor, String categoria, LocalDate data){
+    public void editar(int id, String descricao, double valor, Categorias categoria, LocalDate data){
 
         Despesas desp = em.find(Despesas.class, id);
 
@@ -70,11 +72,11 @@ public class DespesasDAO {
 
     public List<Object[]> listar(){
 
-        List<Object[]> despesas = null;
+        List despesas = null;
 
         try{
 
-            despesas = em.createQuery("SELECT d.id, d.descricao, d.valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.receita " +
+            despesas = em.createQuery("SELECT d.id, d.descricao, d.valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.identificador " +
                     "FROM  Despesas d, Categorias c " +
                     "WHERE d.categoria = c.id ").getResultList();
 
@@ -88,14 +90,14 @@ public class DespesasDAO {
 
     public List<Object[]> listarAgrupado(){
 
-        List<Object[]> despesas = null;
+        List despesas = null;
 
         try{
 
-            despesas = em.createQuery("SELECT d.id, d.descricao, SUM(d.valor) AS total_valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.receita " +
+            despesas = em.createQuery("SELECT d.id, d.descricao, SUM(d.valor) AS total_valor, c.categoria, d.formaPagamento, d.nparcela, d.parcelas, d.identificador " +
                     "FROM Despesas d " +
                     "JOIN Categorias c ON d.categoria = c.id " +
-                    "GROUP BY d.receita").getResultList();
+                    "GROUP BY d.identificador").getResultList();
 
         }catch(Exception e){
             e.printStackTrace();
@@ -132,15 +134,15 @@ public class DespesasDAO {
         }
     }
 
-    public int getLastReceita(int id){
+    public int identificador(int id){
         try{
 
 
-            String query = "SELECT MAX(receita) from Despesas";
+            String query = "SELECT MAX(identificador) from Despesas";
 
-            int receita = (int) em.createQuery(query).getSingleResult();
+            int identificador = (int) em.createQuery(query).getSingleResult();
 
-            return receita;
+            return identificador;
 
 
         } catch (Exception e) {
@@ -149,13 +151,13 @@ public class DespesasDAO {
 
     }
 
-    public List<Despesas> buscarPorReceita(int receita){
+    public List<Despesas> buscarPorIdentificador(int identificador){
 
         List<Despesas> despesas = null;
 
         try{
 
-            despesas = em.createQuery("FROM  Despesas d WHERE d.receita = "+ receita +" ").getResultList();
+            despesas = em.createQuery("FROM  Despesas d WHERE d.identificador = "+ identificador +" ").getResultList();
 
         }catch(Exception e){
             e.printStackTrace();
@@ -165,10 +167,10 @@ public class DespesasDAO {
 
     }
 
-    public void excluirPorReceita(int receita){
+    public void excluirPorIdentificador(int identificador){
         try{
 
-            for(Despesas d: buscarPorReceita(receita)){
+            for(Despesas d: buscarPorIdentificador(identificador)){
                 excluir(d.getId());
             }
 
